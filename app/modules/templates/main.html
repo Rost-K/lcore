@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Олешье</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="">
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <!-- Bootstrap -->
+    <link href="/web/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="/web/libs/font-awesome/css/font-awesome.min.css">
+    <link href="/web/css/main.css" rel="stylesheet" media="screen">
+    <link href="/web/libs/magnific-popup/magnific-popup.css" rel="stylesheet" media="screen">
+    <link href="/web/libs/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" media="screen">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="../../assets/js/html5shiv.js"></script>
+    <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+    <script>
+        var CKEDITOR_BASEPATH = '/web/libs/ckeditor/';
+        var lapiCore = {}
+        lapiCore.modulesPre = {};
+        lapiCore.modulesReady = {};
+        lapiCore.appStructure = {};
+        lapiCore.appConf = {{&appStructure}};
+        lapiCore.appConf.share = {{&sharedData}};
+
+        involve = function(path) {
+            var tempmod = {exports: {}};
+            if (typeof lapiCore.modulesReady[path] == 'undefined') {
+                lapiCore.modulesPre[path](tempmod);
+                lapiCore.modulesReady[path] = tempmod.exports;
+            }
+
+            return (lapiCore.modulesReady[path]);
+        }
+    </script>
+</head>
+<body{{#bodyclass}} class="{{bodyclass}}"{{/bodyclass}}>
+
+<div id="center-panel">
+<div class="header hide-on-admin">
+    <div class="container">
+        <div class="logo">
+            <a href="#"><img src="/web/img/logo.png"/></a>
+        </div>
+        <div class="main-menu">
+            <ul class="nav nav-pills">
+                {{&navbar}}
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+    {{&body}}
+</div>
+<div class="footer hide-on-admin">
+    <div class="map-panel-container">
+        <div class="map-panel-in">
+            <div class="map-panel-cell map-panel-control closed">
+                <img src="/web/img/map-1.png" class="control-open"/><img src="/web/img/map-1-c.png" class="control-close"/>
+            </div>
+            <div class="map-panel-cell map-panel-info">
+                <div class="map-panel-info">
+                    <div class="map-panel-info-in">
+                        <p>
+                            <img src="/web/img/howtoget.png"/>
+                        </p>
+                        <p>
+                            <span style="color: red">&#x25cf;</span> 40км &#10145; <span style="color: gray">&#x25cf;</span> Херсон <br/>
+                            <span style="color: red">&#x25cf;</span> 65км &#10145; <span style="color: gray">&#x25cf;</span> Скадовск <br/>
+                            <span style="color: red">&#x25cf;</span> 42км &#10145; <span style="color: gray">&#x25cf;</span> Большевик <br/>
+                            <span style="color: red">&#x25cf;</span> 75км &#10145; <span style="color: gray">&#x25cf;</span> Лазурное <br/>
+                            <span style="color: red">&#x25cf;</span> 58км &#10145; <span style="color: gray">&#x25cf;</span> Железный Порт <br/>
+                            <span style="color: red">&#x25cf;</span> 5км &#10145; <span style="color: gray">&#x25cf;</span> Голая Пристань <br/>
+                        </p>
+                        <p><strong>Вопросы задавать сюда:</strong><br/>
+                            +38 067 927 94 10<br/>
+                            +38 050 315 7 999<br/>
+                            Херсонская область, с. М. Кардашинка,
+                            ул. Вишневая, 19, эко-парк «Всього Свого»
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="map-panel-cell map-panel-control">
+                <img src="/web/img/map-3.png" />
+            </div>
+            <div class="map-panel-cell map-panel-map">
+            </div>
+        </div>
+    </div>
+    <div class="row inner">
+        <div class="col-md-7">
+            <img src="/web/img/phone.png" class="left" style="margin-right: 20px"/>
+            <div class="centered-out left">
+                    <span class="centered-in contactus">
+                        Свяжитесь с нами и мы вместе<br/>
+                        совершим путешествие в прошлое!
+
+                    </span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="centered-out">
+                    <span class="centered-in">
+                        <img src="/web/img/phone-icon.png" class="left" style="margin-right: 10px"/>
+                        +38 067 927 94 10<br/>
+                        +38 067 927 94 10
+
+                    </span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="centered-out text-right">
+                    <span class="centered-in">
+                        <img src="/web/img/skype.png" style="margin-right:40px"/>
+                    </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="header hide-on-admin">
+    <div class="container">
+
+    </div>
+</div>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/web/libs/jquery.js"></script>
+<script src="/web/libs/jquery.flysheet.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<script src="/web/libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="/web/libs/magnific-popup/jquery.magnific-popup.js"></script>
+<script src="/web/libs/freewall.js"></script>
+<script src="/web/libs/jquery.ba-throttle-debounce.min.js"></script>
+<script src="/web/libs/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
+<script src="/web/libs/bootstrap-modal/js/bootstrap-modal.js"></script>
+<script src="/web/libs/dable/dable.js"></script>
+<script>
+    $(function () {
+
+
+        $('.footer').on('click', ".map-panel-control.closed", function(){
+            $( ".map-panel-in" ).animate({width: "100%"}, 500);
+            $( ".map-panel-info" ).animate({width: "300px"}, 500);
+            $(this).addClass('opened').removeClass('closed');
+        });
+        $('.footer').on('click', ".map-panel-control.opened", function(){
+            $( ".map-panel-in" ).animate({width: "10px"}, 500);
+            $( ".map-panel-info" ).animate({width: "0px"}, 500);
+            $(this).addClass('closed').removeClass('opened');
+        });
+
+        //SLIDO
+
+
+    })
+</script>
+</body>
+{{#appDependencies}}
+<script src="{{src}}" ></script>
+{{/appDependencies}}
+<script>
+    var appStart = involve('/core/client/app.js');
+    $(function () {
+        appStart();
+    })
+</script>
+</html>

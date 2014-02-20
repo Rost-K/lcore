@@ -1,0 +1,58 @@
+<div id="modals">
+</div>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-9">
+        <ul class="nav nav-pills admin-element">
+            <li><a data-action="newpage" href=""><i class="fa fa-plus-circle"></i> Создать страницу </a></li>
+        </ul>
+
+        <table class="table lapitable">
+        <thead>
+        <tr>
+            <th class="checker"></th>
+            {{#columns}}
+                <th>{{title}}</th>
+            {{/columns}}
+        </tr>
+        </thead>
+        <tbody >
+            {{#rows}}
+            <tr data-checked = 'false' data-id='{{&_id}}'  data-alias='{{&alias}}'>
+                <td  class="checker"><i class="fa fa-square-o unchecked-icon"></i><i class="fa fa-check-square-o checked-icon"></i> </td>
+                {{#cells}}
+                <td>{{&content}}</td>
+                {{/cells}}
+            </tr>
+            {{/rows}}
+        </tbody>
+        <tfoot>
+        <tr>
+            <th data-checked = 'false' class="checker">
+                <i class="fa fa-square-o unchecked-icon"></i>
+                <i class="fa fa-check-square-o checked-icon"></i>
+            </th>
+            <th colspan="{{count}}">
+                <div class="row">
+                    <div class="col-md-9 lt-foot">
+                        <a href="#"><i class="fa fa-folder-open-o fa-fw"></i> Папки</a>
+                        <a href="#" data-action="delete-pages"><i class="fa fa-trash-o fa-fw"></i> Удалить</a>
+                    </div>
+                    <div class="col-md-3 lt-foot">
+                        <ul class="pagination pagination-sm">
+                            <li><a href="#">&laquo;</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">&raquo;</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </th>
+        </tr>
+        </tfoot>
+        </table>
+    </div>
+</div>
