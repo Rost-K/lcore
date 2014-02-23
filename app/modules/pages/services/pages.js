@@ -34,7 +34,11 @@ var getList = function (serviceReq, callback) {
         }).toArray(
             function(err, result) {
                 if (err) throw err;
-                listQuery(query._id = {$in: result[0].elements});
+                if (result.length) {
+                    listQuery(query._id = {$in: result[0].elements});
+                } else {
+                    callback({data: {list: {}}})
+                }
             }
         );
     } else {
@@ -75,11 +79,11 @@ var savePage = function (serviceReq, callback) {
                 return;
             }  else {
                 data._id = req.db.ObjectID.createFromHexString(data._id);
-             /*   pagesCollection.save(data, {strict: true}, function (err, result){
+                pagesCollection.save(data, {strict: true}, function (err, result){
                     console.log(result);
 
                     callback({data: {}});
-                });  */
+                });
                 callback({data: {}});
                 return;
             }

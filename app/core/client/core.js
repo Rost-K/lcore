@@ -2,7 +2,7 @@ var pushStateAvailable = true;
 var core = {};
 var helpers = involve('/core/client/helpers.js');
 var router = involve('/core/shared/router.js');
-var runControllers = involve('/core/shared/runControllers.js');
+var runControllers = involve('/core/shared/runcontrollers.js');
 
 if (typeof history.pushState === 'undefined') {
     pushStateAvailable = false;

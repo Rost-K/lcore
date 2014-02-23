@@ -1,12 +1,10 @@
 <div class="big-deal" style="background-image: url('/web/img/bigdeal.jpg')">
     <div class="row">
         <div class="col-md-4 col-md-offset-8 preface">
-            <h1>{{&title}}</h1>
-            {{#intro}}
-            <p>
-                {{.}}
-            </p>
-            {{/intro}}
+            {{^intro}} <h1>{{&title}}</h1>{{/intro}}
+            <div name="intro" data-field-type="richtext">
+                {{&intro}}
+            </div>
         </div>
     </div>
 </div>
@@ -15,14 +13,15 @@
         <div class="col-md-3">
         </div>
         <div class="col-md-9">
-            <ul class="nav nav-tabs" id="myTab">
+            <ul class="nav nav-tabs" id="tabsPanel">
                 {{#titles}}
-                    <li {{#active}}class="active"{{/active}}><a href="#tab-{{num}}">{{title}}</a></li>
+                    <li {{#active}}class="active"{{/active}}><a href="#{{key}}">{{title}}</a></li>
                 {{/titles}}
+                    <li id="tabAdd"><a href="#" data-action="new-tab"><i class="fa fa-plus-square-o fa-lg"></i></a></li>
             </ul>
         </div>
     </div>
-    <div class="tab-content">
+    <div class="tab-content" >
         {{#tabs}}
          {{&text}}
         {{/tabs}}

@@ -23,6 +23,7 @@ var listPages = function (callback) {
             callback(answer);
         })
     }
+
     var modalsBundleCallback = function(answer) {
         $.each(answer, function (){
             $('[data-section="body"]').append(this.text);
@@ -30,6 +31,7 @@ var listPages = function (callback) {
         var $newPageForm = $('#newPageForm');
         var $newPageModal = $('#extra-page');
         var $deletePagesModal = $('#delete-pages');
+        var $tabSetupModal = $('#delete-pages');
 
         var newPageModel = new Model({
             save: function (callback) {
@@ -229,13 +231,40 @@ var editPage = function(callback) {
             $extrasModal.modal('show');
         })
 
+        var tabSettingsModel = new Model();
+        var $tabSettingsModal = $('#tab-settings');
+        $container.on('click', '[data-action="new-tab"]', function (e){
+            e.preventDefault();
+            $el = this;
+            //editPageModel.seed($extrasModal);
+            $tabSettingsModal.modal('show');
+        })
+        $tabSettingsModal.on('click', '[data-action="save"]', function (e){
+            e.preventDefault();
+            $('body').lock();
+            tabSettingsModel.harvest($tabSettingsModal);
+            $('#tabsPanel').find('.active').removeClass('active');
+            $('#tabAdd').before('<li class="active"><a href="#tab-'+tabSettingsModel.data.key+'">'+tabSettingsModel.data.title+'</a></li>');
+            core.templates.render({
+                file: 'pages/templates/tabs/tab-'+ tabSettingsModel.data.type +'.html',
+                data: {
+                    active: true,
+                    key: tabSettingsModel.data.key
+                }
+            }, function(answer){
+                $('.tab-content').find('.active').removeClass('active');
+                $('.tab-content').append(answer.text).find('[data-field-type="richtext"]').attr('contenteditable', 'true').ckeditor();
+                $('body').lock(false);
+            })
+            $tabSettingsModal.modal('hide');
+        });
     }
 
-    core.templates.render({
-        file: 'pages/templates/admin/modals/extradata.html',
-        data: {}
-    }, function(answer){
-        $container.append(answer.text);
+    var modalsBundleData = [];
+    var modalsBundleCallback = function(answer) {
+        $.each(answer, function (){
+            $container.append(this.text);
+        })
         if (!$().ckeditor) {
             $.getScript('/web/libs/ckeditor/ckeditor.js', function(){
                 $.getScript('/web/libs/ckeditor/adapters/jquery.js', function(){
@@ -245,9 +274,24 @@ var editPage = function(callback) {
         } else {
             initEditors();
         }
-    })
-
-   // console.log(core.shared);
+    }
+    modalsBundleData[0] = function(callback) {
+        core.templates.render({
+            file: 'pages/templates/admin/modals/extradata.html',
+            data: {}
+        }, function(answer){
+            callback(answer);
+        })
+    }
+    modalsBundleData[1] = function(callback) {
+        core.templates.render({
+            file: 'pages/templates/admin/modals/tabsettings.html',
+            data: {}
+        }, function(answer){
+            callback(answer);
+        })
+    }
+    bundle(modalsBundleData, modalsBundleCallback);
 
     callback();
 }

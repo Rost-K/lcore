@@ -44,10 +44,10 @@ var tabEnhancer = function () {
 var enhance = function (callback) {
     $('body').removeClass('admin');
     $('body').addClass('site');
-    $('#myTab a:first').tab('show');
-    $('#myTab a').click(function (e) {
+    $('#tabsPanel li.active a').tab('show');
+    $('#tabsPanel').off('click','li a:not([data-action])').on('click','li a:not([data-action])', function (e) {
         e.preventDefault()
-        $(this).tab('show');
+        $(e.target).tab('show');
         tabEnhancer();
     });
     tabEnhancer();
