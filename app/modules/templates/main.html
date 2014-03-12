@@ -9,10 +9,10 @@
     <!-- Bootstrap -->
     <link href="/web/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="/web/libs/font-awesome/css/font-awesome.min.css">
-    <link href="/web/css/main.css" rel="stylesheet" media="screen">
     <link href="/web/libs/magnific-popup/magnific-popup.css" rel="stylesheet" media="screen">
     <link href="/web/libs/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" media="screen">
-
+    <link href="/web/libs/qtip/jquery.qtip.min.css" rel="stylesheet" media="screen">
+    <link href="/web/css/main.css" rel="stylesheet" media="screen">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="../../assets/js/html5shiv.js"></script>
@@ -25,7 +25,7 @@
         lapiCore.modulesReady = {};
         lapiCore.appStructure = {};
         lapiCore.appConf = {{&appStructure}};
-        lapiCore.appConf.share = {{&sharedData}};
+        lapiCore.appConf.shared = {{&sharedData}};
 
         involve = function(path) {
             var tempmod = {exports: {}};
@@ -139,7 +139,8 @@
 <script src="/web/libs/jquery.ba-throttle-debounce.min.js"></script>
 <script src="/web/libs/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
 <script src="/web/libs/bootstrap-modal/js/bootstrap-modal.js"></script>
-<script src="/web/libs/dable/dable.js"></script>
+<script src="/web/libs/qtip/jquery.qtip.min.js"></script>
+<script src="/web/libs/usefuls.js"></script>
 <script>
     $(function () {
 
@@ -154,10 +155,6 @@
             $( ".map-panel-info" ).animate({width: "0px"}, 500);
             $(this).addClass('closed').removeClass('opened');
         });
-
-        //SLIDO
-
-
     })
 </script>
 </body>

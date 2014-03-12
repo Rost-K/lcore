@@ -29,7 +29,6 @@ routeViews = function(reqdata, url) {
     }
 
     if (routeResult !== false) {
-        //runControllers(reqdata, routeResult, viewCallback);
         runControllers(core, reqdata, routeResult, viewCallback);
     } else {
         // alert('routing failed');
@@ -40,7 +39,7 @@ routeControllers = function(url) {
     //Creating reqdata object for current request
     var reqdata = generateReq(url);
 
-    var routeResult = router (url, lapiCore.appStructure.controllers);
+
     var controllingCallback = function(data) {
         for (var i = 0; i < data.length; i++) {
             for (outkey in data[i].content) {
@@ -50,12 +49,10 @@ routeControllers = function(url) {
         routeViews(reqdata, url);
     }
     core.shared = {};
-    runControllers(core, reqdata, routeResult, controllingCallback);
 
-    var routeResult = router(url, lapiCore.controlRoutes);
-
+    var routeResult = router (url, lapiCore.appStructure.controllers);
     if (routeResult !== false) {
-        runControllers(reqdata, routeResult, controllingCallback);
+        runControllers(core, reqdata, routeResult, controllingCallback);
     } else {
         // alert('routing failed');
     }

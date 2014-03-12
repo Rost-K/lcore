@@ -1,6 +1,7 @@
 var lapitable = involve('/modules/enhancer/components/lapitable.js');
 var Model = involve('/modules/helpers/model.js');
 var bundle = involve('/modules/helpers/bundle.js');
+var createModal = involve('/modules/helpers/makemodal.js');
 
 var listPages = function (callback) {
     var core = this.core;
@@ -31,7 +32,6 @@ var listPages = function (callback) {
         var $newPageForm = $('#newPageForm');
         var $newPageModal = $('#extra-page');
         var $deletePagesModal = $('#delete-pages');
-        var $tabSetupModal = $('#delete-pages');
 
         var newPageModel = new Model({
             save: function (callback) {
@@ -141,16 +141,23 @@ var listPages = function (callback) {
 
 var editPage = function(callback) {
     var core = this.core;
-    $container = $('[data-section="body"]');
+    $container = $('#data-container');
+    $aux_container = $('#aux');
     $('body').lock();
+    var tabEditorInit =  involve('/modules/pages/views/admin/tabeditor.js');
     var initEditors = function () {
-        $('[data-field-type="richtext"]').attr('contenteditable', 'true').ckeditor();
+        $('.nav-tabs a').on('shown.bs.tab', function (e) {
+            $($(e.target).attr('href')).find('[data-field-type="richtext"]').attr('contenteditable', 'true').ckeditor();
+        });
+        $('[data-field-type="richtext"]:visible').attr('contenteditable', 'true').ckeditor();
+
         core.templates.render({
             file: 'admin/templates/floater.html',
             data: {}
         }, function(answer){
-            $container.append(answer.text);
-            $('body').lock(false);
+            $(answer.text).appendTo($aux_container);
+
+            $('body').addClass('edit').lock(false);
         });
 
         var $extrasModal = $('#extra-page');
@@ -159,6 +166,7 @@ var editPage = function(callback) {
                 var model = this;
                 $('body').lock();
                 var returnCall = callback || function (){};
+
                 core.services.call(
                     {
                         name: 'pages',
@@ -179,8 +187,10 @@ var editPage = function(callback) {
                                 errors.push(error);
                             }
                             editPageModel.displayErrors($container, errors);
+                        } else {
+                            document.location.href = '/page/' + editPageModel.data.alias;
                         }
-                        console.log(answer);
+
                     }
                 )
             },
@@ -211,10 +221,11 @@ var editPage = function(callback) {
         editPageModel.data = core.shared.pageData;
         editPageModel.seed($extrasModal);
 
-        $container.on('click', '[data-action="save"]', function (e){
+        $aux_container.on('click', '.admin-floater [data-action="save"]', function (e){
             e.preventDefault();
             $el = this;
             editPageModel.harvest($container);
+            console.log(editPageModel.data);
             editPageModel.save();
         });
 
@@ -224,53 +235,33 @@ var editPage = function(callback) {
             editPageModel.harvest($extrasModal);
             $extrasModal.modal('hide');
         });
-        $container.on('click', '[data-action="extras"]', function (e){
+        $aux_container.on('click', '.admin-floater [data-action="extras"]', function (e){
             e.preventDefault();
             $el = this;
             editPageModel.seed($extrasModal);
             $extrasModal.modal('show');
         })
 
-        var tabSettingsModel = new Model();
-        var $tabSettingsModal = $('#tab-settings');
-        $container.on('click', '[data-action="new-tab"]', function (e){
-            e.preventDefault();
-            $el = this;
-            //editPageModel.seed($extrasModal);
-            $tabSettingsModal.modal('show');
-        })
-        $tabSettingsModal.on('click', '[data-action="save"]', function (e){
-            e.preventDefault();
-            $('body').lock();
-            tabSettingsModel.harvest($tabSettingsModal);
-            $('#tabsPanel').find('.active').removeClass('active');
-            $('#tabAdd').before('<li class="active"><a href="#tab-'+tabSettingsModel.data.key+'">'+tabSettingsModel.data.title+'</a></li>');
-            core.templates.render({
-                file: 'pages/templates/tabs/tab-'+ tabSettingsModel.data.type +'.html',
-                data: {
-                    active: true,
-                    key: tabSettingsModel.data.key
-                }
-            }, function(answer){
-                $('.tab-content').find('.active').removeClass('active');
-                $('.tab-content').append(answer.text).find('[data-field-type="richtext"]').attr('contenteditable', 'true').ckeditor();
-                $('body').lock(false);
-            })
-            $tabSettingsModal.modal('hide');
-        });
+        //!!!!!!!!!  Yabs routine
+
     }
 
     var modalsBundleData = [];
     var modalsBundleCallback = function(answer) {
         $.each(answer, function (){
-            $container.append(this.text);
+           $aux_container.append(this.text);
         })
         if (!$().ckeditor) {
-            $.getScript('/web/libs/ckeditor/ckeditor.js', function(){
-                $.getScript('/web/libs/ckeditor/adapters/jquery.js', function(){
-                    initEditors();
+            $.when(
+                $.getScript('/web/libs/ckeditor/ckeditor.js'),
+                tabEditorInit({
+                    aux: $aux_container,
+                    container: $container
                 })
-            })
+            ).done(function(){
+                    $.getScript('/web/libs/ckeditor/adapters/jquery.js').done(initEditors);
+            });
+
         } else {
             initEditors();
         }
@@ -283,14 +274,7 @@ var editPage = function(callback) {
             callback(answer);
         })
     }
-    modalsBundleData[1] = function(callback) {
-        core.templates.render({
-            file: 'pages/templates/admin/modals/tabsettings.html',
-            data: {}
-        }, function(answer){
-            callback(answer);
-        })
-    }
+
     bundle(modalsBundleData, modalsBundleCallback);
 
     callback();

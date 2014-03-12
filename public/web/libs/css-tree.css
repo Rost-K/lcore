@@ -1,0 +1,133 @@
+/*
+ * CSS3 Treeview. No JavaScript
+ * @version 1.0
+ * @author Martin Ivanov
+ * @url developer's website: http://wemakesites.net/
+ * @url developer's twitter: https://twitter.com/#!/wemakesitesnet
+ * @url developer's blog http://acidmartin.wordpress.com/
+ **/
+
+/*
+ * This solution works with all modern browsers and Internet Explorer 9+. 
+ * If you are interested in purchasing a JavaScript enabler for IE8 
+ * for the CSS3 Treeview, please, check this link:
+ * http://experiments.wemakesites.net/miscellaneous/acidjs-css3-treeview/
+ **/
+
+.css-treeview ul,
+.css-treeview li
+{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.css-treeview input
+{
+    position: absolute;
+    opacity: 0;
+}
+
+.css-treeview
+{
+  /*  font: normal 11px "Segoe UI", Arial, Sans-serif;   */
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.css-treeview input + label + ul
+{
+    margin: 0 0 0 22px;
+}
+
+.css-treeview input ~ ul
+{
+    display: none;
+}
+
+.css-treeview label,
+.css-treeview label::before
+{
+    cursor: pointer;
+}
+
+.css-treeview input:disabled + label
+{
+    cursor: default;
+    opacity: .6;
+}
+
+.css-treeview input:checked:not(:disabled) ~ ul
+{
+    display: block;
+}
+
+.css-treeview label/*,
+.css-treeview a  */
+{
+    display: block;
+    line-height: 16px;
+    vertical-align: middle;
+}
+.css-treeview a {
+    display: block;
+    padding: 5px;
+}
+.css-treeview a:hover {
+    background: #F8C523;
+    color: white;
+    text-decoration: none;
+}
+.css-treeview label
+{
+    padding-left: 25px;
+    margin-bottom: 5px;
+}
+.css-treeview .fa {
+    font-size: 22px;
+    line-height: 22px;
+    position: absolute;
+    margin-left: -25px;
+    margin-top: 3px;
+
+}
+.folder-closed
+{
+    display: inline-block;
+}
+.folder-opened
+{
+    display: none;
+}
+.css-treeview input:checked + label .folder-closed
+{
+    display: none;
+}
+.css-treeview input:checked + label .folder-opened
+{
+    display: inline-block;
+}
+.css-treeview .badge {
+    margin-left: 10px;
+}
+/* webkit adjacent element selector bugfix */
+@media screen and (-webkit-min-device-pixel-ratio:0)
+{
+    .css-treeview
+    {
+        -webkit-animation: webkit-adjacent-element-selector-bugfix infinite 1s;
+    }
+
+    @-webkit-keyframes webkit-adjacent-element-selector-bugfix
+    {
+        from
+        {
+            padding: 0;
+        }
+        to
+        {
+            padding: 0;
+        }
+    }
+}

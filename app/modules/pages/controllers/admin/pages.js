@@ -1,5 +1,5 @@
 var listPages = function (callback) {
-
+    var buildTree = involve('/modules/helpers/treebuilder/buildtree.js');
     var context = this;
     var core = this.core;
     var reqdata = this.request;
@@ -41,7 +41,7 @@ var listPages = function (callback) {
                 var cells = []
                 for (var k=0; k < tableFields.length; k++ ) {
                     if (k == 0) {
-                        var content = '<a href="/page/'+item.alias+'">'+item.title+'</a>';
+                        var content = '<a href="/page/'+item.alias+'/">'+item.title+'</a>';
                     } else {
                         var content = item[tableFields[k].name] ? item[tableFields[k].name] : '';
                     }
@@ -55,23 +55,33 @@ var listPages = function (callback) {
                     cells: cells
                 });
             }
-            core.templates.render({
-                file: 'pages/templates/admin/list.html',
-                data: {
-                    columns: tableFields,
-                    rows: rows,
-                    count: rows.length
-                }
-            }, function(answer){
+            core.services.call({
+                    name: 'pages',
+                    method: 'groups',
+                    data:{}
+            },
+            function(answer) {
+                console.log(answer);
+                var treeHTML = buildTree(answer.data);
                 core.templates.render({
-                    file: 'admin/templates/admin.html',
+                    file: 'pages/templates/admin/list.html',
                     data: {
-                        title: 'Страницы',
-                        subtitle: 'Весь список',
-                        content: answer.text
+                        columns: tableFields,
+                        rows: rows,
+                        count: rows.length,
+                        tree: treeHTML
                     }
                 }, function(answer){
-                    callback({content:{body: answer.text}});
+                    core.templates.render({
+                        file: 'admin/templates/admin.html',
+                        data: {
+                            title: 'Страницы',
+                            subtitle: 'Весь список',
+                            content: answer.text
+                        }
+                    }, function(answer){
+                        callback({content:{body: answer.text}});
+                    });
                 });
             });
         });

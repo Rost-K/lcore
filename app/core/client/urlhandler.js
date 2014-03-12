@@ -3,6 +3,9 @@ module.exports = {
     start: function () {
         //var prevHREF
         var handleAClick = function(e) {
+            var filter = '[href^="#"], [href^="http:"], [href^="javascript:"], [href^="https:"]';
+            if ($(this).is(filter)) return true;
+
             var routeStripper = /^[#\/]|\s+$/g;
             var rootStripper = /^\/+|\/+$/g;
             var href = $(this).attr('href');
@@ -32,7 +35,7 @@ module.exports = {
         }
 
         $(window).on('popstate', handlePopState);
-     //   $(document).on("click", "a[href]", handleAClick);
+        $(document).on("click", "a[href]", handleAClick);
     }
 
 }

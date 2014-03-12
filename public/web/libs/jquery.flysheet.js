@@ -54,7 +54,7 @@ jQuery.fn.flySheet = function(paramsPassed) {
     $headings.each(function(index){
         var $this = $(this);
         var fsEntryLi = $('<li></li>');
-        var fsEntryA = $('<a></a>').text($this.html()).attr('fs-target',index).appendTo(fsEntryLi);
+        var fsEntryA = $('<a></a>').text($this.text()).attr('fs-target',index).appendTo(fsEntryLi);
         fsEntryLi.appendTo($fly);
         $this.attr('fs-index',index);
         checkpoints[index] = $this.offset().top;

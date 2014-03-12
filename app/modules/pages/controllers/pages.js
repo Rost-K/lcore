@@ -27,7 +27,7 @@ var fullPage = function (callback) {
         },
         function(answer) {
             var page = answer.data.page;
-            core.share.pageData = page;
+            core.shared.pageData = page;
             if (page == null) {
                 callback({content:{}},
                     {

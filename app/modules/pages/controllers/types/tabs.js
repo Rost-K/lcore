@@ -15,21 +15,28 @@ module.exports = {
 
         var itemCreator = function (itemData) {
             return function (callback) {
-                if (itemData.type == 'text') {
-                    core.templates.render({
-                        file: 'pages/templates/tabs/tab-text.html',
-                        data: itemData
-                    }, function(answer){
-                        callback(answer);
-                    });
-                }
-                if (itemData.type == 'gallery') {
-                    core.templates.render({
-                        file: 'pages/templates/tabs/tab-gal.html',
-                        data: itemData
-                    }, function(answer){
-                        callback(answer);
-                    });
+                switch (itemData.type) {
+                    case 'text': {
+                        core.templates.render({
+                            file: 'pages/templates/tabs/tab-text.html',
+                            data: itemData
+                        }, function(answer){
+                            callback(answer);
+                        });
+                        break;
+                    }
+                    case 'gallery': {
+                        core.templates.render({
+                            file: 'pages/templates/tabs/tab-gal.html',
+                            data: itemData
+                        }, function(answer){
+                            callback(answer);
+                        });
+                        break;
+                    }
+                    default : {
+                        callback({text:''})
+                    }
                 }
             }
         }
@@ -50,7 +57,9 @@ module.exports = {
             templatingData.titles.push ({
                 num: i,
                 title:data.content[i].title,
-                active: data.content[i].active
+                active: data.content[i].active,
+                key: data.content[i].key,
+                type: data.content[i].type
             });
 
             data.content[i].num = i;

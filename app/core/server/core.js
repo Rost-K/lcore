@@ -23,7 +23,7 @@ module.exports = function (config, appStructure, reqInstance){
         getDecisive: getDecisive,
         getStatusCode: getStatusCode,
         displayError: displayError,
-        share: {},
+        shared: {},
         templates: require('./templates.js')(config),
         services: require('./services.js')(config, appStructure, reqInstance)
     }

@@ -1,11 +1,11 @@
-<div class="row tab-pane {{#active}}active{{/active}}" id="tab-{{key}}">
+<div data-tab-key="{{key}}" class="row tab-pane {{#active}}active{{/active}}" id="tab-{{key}}">
     <div class="col-md-2">
         <div class="toc"> </div>
     </div>
     <div class="col-md-10">
         <div class="text-content">
             <div class="row">
-                <div class="col-md-9" name="tab-content" data-field-type="richtext">
+                <div class="col-md-9" data-tab-content="true" data-field-type="richtext">
                     {{&content}}
                 </div>
             </div>

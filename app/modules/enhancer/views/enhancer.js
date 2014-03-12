@@ -42,7 +42,7 @@ var tabEnhancer = function () {
 }
 
 var enhance = function (callback) {
-    $('body').removeClass('admin');
+    $('body').removeClass('admin edit');
     $('body').addClass('site');
     $('#tabsPanel li.active a').tab('show');
     $('#tabsPanel').off('click','li a:not([data-action])').on('click','li a:not([data-action])', function (e) {
@@ -54,13 +54,10 @@ var enhance = function (callback) {
 }
 var enhanceAdmin = function (callback) {
     $('body').addClass('admin');
-    $('body').removeClass('site');
+    $('body').removeClass('site edit');
     stickyHead();
-    if (lapiCore.appConf.user) {
-        addAdminPanel.call(this, callback);
-    } else {
-        callback();
-    }
+    callback();
+
 
 }
 module.exports = {

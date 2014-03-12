@@ -1,3 +1,12 @@
+var getGroups = function (serviceReq, callback) {
+    var groupsCollection = this.db.collection('groups');
+    groupsCollection.find({}).toArray(
+        function(err, result) {
+            if (err) throw err;
+            callback({data: result})
+        }
+    );
+}
 var getPage = function (serviceReq, callback) {
     var alias = serviceReq.data.alias;
     var pagesCollection = this.db.collection('pages');
@@ -49,6 +58,7 @@ var getList = function (serviceReq, callback) {
 var savePage = function (serviceReq, callback) {
     var data = serviceReq.data;
     var req = this;
+    data._id = data._id || '';
     if (!data.alias && !data._id && !data.title) {
         callback({err: 'ERR_MOD_PAGES_SERV_WRONG_SAVE_PAGE_DATA'});
         return;
@@ -114,6 +124,7 @@ var deletePages = function (serviceReq, callback) {
 }
 module.exports = {
     methods: {
+        groups: getGroups,
         page: getPage,
         /*defaultMethod: returnEmpty*/
         list: getList,

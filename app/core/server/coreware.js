@@ -3,6 +3,7 @@ var fs = require ('fs');
 var coreWare = function (config, appStructure) {
     console.log('App started');
     return function (req, res, next) {
+		res.setHeader("Content-Type", "text/html");	
         var serviceReqInstance = {
             url: req.url,
             method: req.method,
@@ -41,11 +42,9 @@ var coreWare = function (config, appStructure) {
             if (req.user) {
                 outputStructure.user = req.user;
             }
-            templateData['sharedData'] = JSON.stringify(core.share);
+            templateData['sharedData'] = JSON.stringify(core.shared);
             templateData['appStructure'] = JSON.stringify(outputStructure);
 
-            console.log('---');
-            console.log(JSON.stringify(core.share));
             templateReq = {
                 file: "templates/main.html",
                 data: templateData

@@ -41,7 +41,6 @@ var Model = function (configObj) {
         });
     }
     this.harvest = function (form) {
-        var model = this;
         if (form instanceof jQuery) {
             var $form = form;
         } else {
@@ -50,7 +49,28 @@ var Model = function (configObj) {
         $form.find('[name]').each(function(){
             var $el = $(this);
             if ($el.attr('name')) {
-                model.data[$el.attr('name')] = $el.data('field-type') == 'richtext' ? $el.html() : $el.val();
+                switch($el.data('field-type'))
+                {
+                    case 'richtext':
+                       model.data[$el.attr('name')] =  $el.html();
+                       break;
+                    case 'tabs':
+                       var tabs = [];
+                       $el.find('li[data-key]').each(function(){
+                           var $tabEl = $(this);
+                           var tab = {
+                               key: $tabEl.attr('data-key'),
+                               type: $tabEl.attr('data-type'),
+                               title: $tabEl.find('a').html(),
+                               content: $('[data-tab-key="' + $tabEl.attr('data-key') + '"] [data-tab-content]').html()
+                           }
+                           tabs.push(tab);
+                       })
+                        model.data[$el.attr('name')] = tabs;
+                       break;
+                    default:
+                       model.data[$el.attr('name')] = $el.val();
+                }
             }
         });
     }
