@@ -1,6 +1,13 @@
 @import "/web/libs/fonts/arsenal/arsenal.css";
+@import "/web/libs/fonts/scada/scada.css";
 body.site {
-    font-family: "Ubuntu";
+    font-family: "Scada";
+    font-size: 16px;
+    line-height: 1.7;
+}
+body.site h1, body.site h2, body.site h3, body.site h4, body.site h5, body.site h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Scada";
+    font-weight: bold;
 }
 a {
     color: #ffffff;
@@ -11,6 +18,92 @@ a {
 .admin .hide-on-admin {
     display: none;
 }
+.input-group select.form-control {
+    width: 108%;
+    overflow: hidden;
+}
+/*Bootstrap callouts      */
+/* Side notes for calling out things
+-------------------------------------------------- */
+
+/* Base styles (regardless of theme) */
+.bs-callout {
+    margin: 20px 0;
+    padding: 15px 30px 15px 15px;
+    border-left: 5px solid #eee;
+}
+.bs-callout h1,
+.bs-callout h2,
+.bs-callout h3,
+.bs-callout h4,
+.bs-callout h5,
+.bs-callout h6 {
+    margin-top: 0;
+}
+
+.bs-callout-danger h1,
+.bs-callout-danger h2,
+.bs-callout-danger h3,
+.bs-callout-danger h4,
+.bs-callout-danger h5,
+.bs-callout-danger h6 {
+    color: #B94A48;
+}
+
+.bs-callout-warning h1,
+.bs-callout-warning h2,
+.bs-callout-warning h3,
+.bs-callout-warning h4,
+.bs-callout-warning h5,
+.bs-callout-warning h6 {
+    color: #C09853;
+}
+
+.bs-callout-info h1,
+.bs-callout-info h2,
+.bs-callout-info h3,
+.bs-callout-info h4,
+.bs-callout-info h5,
+.bs-callout-info h6 {
+    color: #3A87AD;
+}
+
+.bs-callout-success h1,
+.bs-callout-success h2,
+.bs-callout-success h3,
+.bs-callout-success h4,
+.bs-callout-success h5,
+.bs-callout-success h6 {
+    color: #3C763D;
+}
+
+.bs-callout p:last-child {
+    margin-bottom: 0;
+}
+
+.bs-callout code,
+.bs-callout .highlight {
+    background-color: #fff;
+}
+
+/* Themes for different contexts */
+.bs-callout-danger {
+    background-color: #fcf2f2;
+    border-color: #dFb5b4;
+}
+.bs-callout-warning {
+    background-color: #fefbed;
+    border-color: #f1e7bc;
+}
+.bs-callout-info {
+    background-color: #f0f7fd;
+    border-color: #d0e3f0;
+}
+.bs-callout-success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
 #aux {
    /* display: none;      */
 }
@@ -64,7 +157,7 @@ a {
     z-index: 900;
     padding: 0px;
     list-style: none;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Scada', sans-serif;
 
 }
 .slido {
@@ -156,7 +249,7 @@ a {
 }
 .main-menu {
     position: absolute;
-    margin-top: 86px;
+    margin-top: 76px;
     margin-left: 210px;
 }
 .main-menu .nav-pills>li>a {
@@ -177,6 +270,8 @@ a {
     height:350px;
     position: relative;
     border-bottom: 10px solid white;
+    background-position: center center;
+    background-size: cover;
 }
 .preface {
     min-height: 100px;
@@ -362,10 +457,12 @@ table.lapitable {
     text-align: center;
     line-height: 1;
 }
-.lapitable .checked-icon, .lapitable .checked .unchecked-icon {
+.lapitable .checked-icon, .lapitable .checked .unchecked-icon,
+.lt-foot .checked-icon, .lt-foot .checked .unchecked-icon {
     display: none;
 }
-.lapitable .checked .checked-icon, .lapitable .unchecked-icon {
+.lapitable .checked .checked-icon, .lapitable .unchecked-icon,
+.lt-foot .checked .checked-icon, .lt-foot .unchecked-icon {
    display: inline;
 }
 .sticky-wrap th, .lapitable th {
@@ -391,13 +488,20 @@ table.lapitable {
 .lapitable tbody tr:hover {
     background-color: rgba(129,208,177,.3);
 }
-.lapitable .lt-foot {
-    height: 30px;
+.lt-foot {
+    background: #336ca6;
+    line-height: 50px;
 }
-.lapitable .lt-foot > a {
+.lt-foot .btn-link {
     color: white;
-    line-height:30px;
-    font-weight: normal;
+}
+.lapitable button.btn-link  {
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+}
+.lapitable button.btn-link:hover  {
+    background:  #295685;
 }
 .lapitable .pagination {
     margin:0;
@@ -477,6 +581,9 @@ td.user-name {
     padding-top: 10px;
     padding-bottom: 20px;
 }
+.admin .top-panel {
+    padding-top: 25px;
+}
 .admin h1, .admin h2 {
     color: #F8C523;
     margin-top: 5px;
@@ -510,7 +617,7 @@ td.user-name {
     -khtml-opacity: 0.5;
     opacity: 0.5;
     background: #336ca6;
-    z-index: 1500;
+    z-index: 1000;
     padding: 10px;
 }
 

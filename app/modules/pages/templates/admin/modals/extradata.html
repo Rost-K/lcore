@@ -1,32 +1,22 @@
-<div id="extra-page" class="modal fade" tabindex="-1" data-width="500" style="display: none;">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title"><i class="fa fa-file-text-o"></i> Параметры страницы</h4>
+<form role="form" id="newPageForm">
+    <!--<input type="hidden" name="_id" value="" />-->
+    <div class="form-group">
+        <label class="control-label" for="title">Заголовок</label>
+        <input type="input" class="form-control" id="exampleInputEmail1" name="title" placeholder="Введите заголовок страницы">
     </div>
-    <div class="modal-body">
-        <form role="form" id="newPageForm">
-            <!--<input type="hidden" name="_id" value="" />-->
-            <div class="form-group">
-                <label class="control-label" for="title">Заголовок</label>
-                <input type="input" class="form-control" id="exampleInputEmail1" name="title" placeholder="Введите заголовок страницы">
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="alias">Указатель</label>
-                <input type="input" class="form-control" name="alias" placeholder="Введите Указатель страницы">
-                <p class="help-block">Указатель - уникальный идетификтор страницы. Испульзуется в URL. Может содержать строчные латинские символы и знак _</p>
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="type">Тип</label>
-                <select name="type"  class="form-control" placeholder="Выберите тип страницы">
-                    <option value="plain">Стандартная</option>
-                    <option value="tabs">Страница с табами</option>
-                </select>
-            </div>
+    <div class="form-group">
+        <label class="control-label" for="alias">Указатель</label>
+        <input type="input" class="form-control" name="alias" placeholder="Введите Указатель страницы">
+        <p class="help-block">Указатель - уникальный идетификтор страницы. Испульзуется в URL. Может содержать строчные латинские символы и знак _</p>
+    </div>
+    {{#showType}}
+        <div class="form-group">
+            <label class="control-label" for="type">Тип</label>
+            <select name="type"  class="form-control" placeholder="Выберите тип страницы">
+                <option value="plain">Стандартная</option>
+                <option value="tabs">Страница с табами</option>
+            </select>
+        </div>
+    {{/showType}}
 
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" data-dismiss="modal" class="btn btn-default">Не надо</button>
-        <button type="button" class="btn btn-primary" data-action="save">Готово</button>
-    </div>
-</div>
+</form>

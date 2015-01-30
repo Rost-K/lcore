@@ -61,7 +61,7 @@ var addAdminPanel = function (callback) {
                 if (req.request.routingData.page) {
                     $('#editButton').attr('href','/page/' + req.request.routingData.page + '/edit').show();
                 } else {
-                    $('#editButton').hide();
+                    $('#editButton').parent('div').hide();
                 }
                 callback();
             });

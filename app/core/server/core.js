@@ -18,13 +18,15 @@ module.exports = function (config, appStructure, reqInstance){
     var getStatusCode = function () {
         return statusCode;
     }
-    return {
+    var core = {
         setDecisive: setDecisive,
         getDecisive: getDecisive,
         getStatusCode: getStatusCode,
         displayError: displayError,
         shared: {},
-        templates: require('./templates.js')(config),
-        services: require('./services.js')(config, appStructure, reqInstance)
-    }
+        templates: require('./templates.js')(config)
+     };
+    core.services = require('./services.js')(config, appStructure, reqInstance, core);
+
+    return core;
 }

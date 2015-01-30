@@ -1,4 +1,4 @@
-var config = involve('/config/client.js');
+
 
 module.exports = function () {
     var urlhandler = involve('/core/client/urlhandler.js');

@@ -26,7 +26,6 @@ module.exports = {
             var initialPop = !popped && location.href == initialURL;
             popped = true;
             if ( initialPop ) return;
-            console.log('POP');
             var routeStripper = /^[#\/]|\s+$/g;
             var rootStripper = /^\/+|\/+$/g;
             var returnLocation = history.location || document.location;

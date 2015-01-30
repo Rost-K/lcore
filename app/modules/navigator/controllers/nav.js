@@ -1,9 +1,6 @@
     var navGenerator = function (callback) {
-        var serviceReqData = {
-            cat: 'main'
-        }
         var core = this.core;
-        core.services.call({name: 'pages', method: 'list', data:serviceReqData}, function(answer) {
+        core.services.call({name: 'pages', method: 'list', data: {group: 'nav'}}, function(answer) {
             var list = answer.data.list;
             var nav = [];
             for(var i=0; i<list.length; i++) {

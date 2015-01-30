@@ -2,3 +2,6 @@ config
 core
 modules
 /.idea
+/files
+/upltmp
+node_modules

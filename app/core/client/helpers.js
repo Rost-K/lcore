@@ -21,7 +21,6 @@ helpers.decodeCookies = function(cookieStr) {
         return {};//code
     }
     var cookieArr = cookieStr.split('; ');
-    console.log('decoding cookie - '+JSON.stringify(cookieArr)+'\n');
     var retArr = {};
     for (var i = 0; i<cookieArr.length; i++) {
         var pr = cookieArr[i].split('=');

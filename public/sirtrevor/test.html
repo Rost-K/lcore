@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bootstrap 101 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="/web/libs/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/web/css/font-awesome.css" rel="stylesheet">
+    <style>
+        .st-block__ui-right {
+            left:0px;
+            right: auto;
+        }
+        .st-block__ui-right .st-block-ui-btn, .st-block__ui-right:hover .st-block-ui-btn  {
+            border-left:0;
+            border-right: 2px solid #34e0c2;
+            min-width: 3em;
+            width: auto;
+            padding-left:5px;
+            padding-right: 5px;
+        }
+        .resp {
+            width:100%
+        }
+        .thumbnail {
+            max-height:300px;
+            overflow: hidden;
+        }
+        .big-img {
+            height: 200px;
+            background-image: url(/image/bp-1/53c2c1088ee9eee81c000003);
+            background-size: 100%;
+        }
+    </style>
+
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+53c2c10a8ee9eee81c000006
+53c2c10b8ee9eee81c000007
+
+53c2c10c8ee9eee81c000009
+53c2c10d8ee9eee81c00000a
+53c2c10e8ee9eee81c00000b
+53c2c10f8ee9eee81c00000c
+53c2c10f8ee9eee81c00000d
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-12 big-img"  data-resp="true" data-resp-bg="true">
+            <h1 class="page-header">Thumbnail Gallery</h1>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="#">
+                <img data-resp="true"class="img-responsive resp" src="/image/bp-0/53b929330cbd2f8423000001">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="#">
+                <img data-resp="true"class="img-responsive resp" src="/image/bp-0/53b929b80cbd2f8423000002">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="#">
+                <img data-resp="true"class="img-responsive resp" src="/image/bp-0/53b929b80cbd2f8423000003">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="#">
+                <img data-resp="true"class="img-responsive resp" src="/image/bp-0/53b929b90cbd2f8423000005">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="#">
+                <img data-resp="true"class="img-responsive resp" src="/image/bp-0/53b929b90cbd2f8423000004">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="#">
+                <img data-resp="true"class="img-responsive resp" src="/image/bp-0/53c2c1088ee9eee81c000003">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="#">
+                <img data-resp="true"class="img-responsive resp" src="/image/bp-0/53c2c10a8ee9eee81c000005">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="#">
+                <img data-resp="true"class="img-responsive resp" src="/image/bp-0/53b929b80cbd2f8423000003">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="#">
+                <img data-resp="true"class="img-responsive resp" src="/image/bp-0/53b929b90cbd2f8423000005">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="#">
+                <img data-resp="true"class="img-responsive resp" src="/image/bp-0/53c2c10b8ee9eee81c000008">
+            </a>
+        </div>
+    </div>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="web/libs/jquery.js"></script>
+<!-- Sir Trevor with dependencies -->
+<script>
+    var breakpoints = [ 100,
+        300,
+        600,
+        900,
+        1350
+    ]
+    var respImageHandler = function() {
+        var $image = $(this);
+        var width = $image.width();
+        var i = 0;
+        var bpwidth;
+        do {
+            bpwidth = breakpoints[i];
+            i++;
+        }
+        while (i < breakpoints.length && bpwidth < width);
+        i--;
+        var imageUrl = $image.attr('src');
+        var processBG = $image.is('[data-resp-bg]');
+        if (processBG) {
+            imageUrl = $image.css('background-image');
+            imageUrl = imageUrl.replace('url(','').replace(')','').replace(location.protocol + "//" + location.host,'');
+        }
+        if (imageUrl.indexOf('http') === 0) return;
+        imageUrlParts = imageUrl.split('/');
+        if (imageUrlParts[2].indexOf('bp-') !==0 ) return;
+        if (imageUrlParts[2].replace('bp-','') >= i) return;
+        imageUrlParts[2] = 'bp-' + i;
+        var newUrl = imageUrlParts.join('/');
+        var tmpImg  = new Image();
+        $(tmpImg).on('load',function(){
+            if (processBG) {
+                $image.css('background-image','url(' + newUrl + ')');
+            } else {
+                $image.attr('src', newUrl);
+            };
+        });
+        tmpImg.src = newUrl;
+
+    }
+
+    $(function () {
+        $('[data-resp]').each(respImageHandler);
+        $(window).on('resize', function(){
+            $('[data-resp]').each(respImageHandler);
+        })
+
+    })
+</script>
+
+</body>
+</html>

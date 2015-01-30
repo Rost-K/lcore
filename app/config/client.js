@@ -1,3 +1,10 @@
 module.exports = {
-    test: 42
+    images: {
+        breakpoints: [ 100,
+            300,
+            600,
+            900,
+            1350
+        ]
+    }
 }

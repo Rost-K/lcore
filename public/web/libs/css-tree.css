@@ -74,15 +74,27 @@
     display: block;
     padding: 5px;
 }
+.css-treeview.light a {
+    color: #295685;
+}
 .css-treeview a:hover {
     background: #F8C523;
     color: white;
     text-decoration: none;
 }
+.css-treeview a.disabled {
+    color: gray!important;
+    cursor: default;
+    background: none;
+}
 .css-treeview label
 {
     padding-left: 25px;
     margin-bottom: 5px;
+}
+.css-treeview label.active
+{
+    background: #336ca6
 }
 .css-treeview .fa {
     font-size: 22px;
@@ -90,7 +102,7 @@
     position: absolute;
     margin-left: -25px;
     margin-top: 3px;
-
+    color: #F8C523;
 }
 .folder-closed
 {

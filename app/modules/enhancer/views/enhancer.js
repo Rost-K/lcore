@@ -51,6 +51,7 @@ var enhance = function (callback) {
         tabEnhancer();
     });
     tabEnhancer();
+    callback();
 }
 var enhanceAdmin = function (callback) {
     $('body').addClass('admin');

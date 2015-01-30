@@ -1,13 +1,29 @@
-<div class="big-deal" style="background-image: url('/web/img/bigdeal.jpg')">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-8 preface">
-            {{^intro}} <h1>{{&title}}</h1>{{/intro}}
-            <div name="intro" data-field-type="richtext">
-                {{&intro}}
+{{^hide-header}}
+{{^bigdealimg}}
+<div class="big-deal" style="background-image: url('/web/img/bd3.png')">
+    {{/bigdealimg}}
+    {{#bigdealimg}}
+    <div class="big-deal" style="background-image: url('/image/bp-2/{{.}}')" data-resp="true" data-resp-bg="true">
+        {{/bigdealimg}}
+        <div class="row">
+            {{#edit-mode}}
+                <div style="padding:5px; text-align: right;">
+                    <label style="padding:0 5px 0 5px; text-align: right; background: url('/web/img/semitrans.png')">
+
+                            <input type="checkbox" {{#hide-intro}}checked="checked"{{/hide-intro}} name="hide-intro"> Не показывать шапку
+                     </label>
+                </div>
+            <button type="button" class="btn btn-default btn-lg" style="position: absolute; left:20px; bottom:20px;" data-action="set-intro-image"><i class="fa fa-picture-o fa-lg"></i></button>
+            {{/edit-mode}}
+            <div class="col-md-4 col-md-offset-8 preface">
+                <h1>{{&title}}</h1>
+                <div name="intro" data-field-type="richtext">
+                    {{&intro}}
+                </div>
             </div>
         </div>
     </div>
-</div>
+    {{/hide-header}}
 <div class="main-content">
 
         <div class="row">
@@ -19,4 +35,3 @@
         </div>
 
 </div>
-

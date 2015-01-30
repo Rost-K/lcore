@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-md-3">
         <h2>Группы</h2>
-        <div class="css-treeview">
+        <div class="css-treeview" id="pgroups-tree">
             <ul>
                 {{{tree}}}
             </ul>
@@ -12,56 +12,99 @@
 
     </div>
     <div class="col-md-9">
-        <ul class="nav nav-pills admin-element">
-            <li><a data-action="newpage" href=""><i class="fa fa-plus-circle"></i> Создать страницу </a></li>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#pages" data-toggle="tab">Страницы</a></li>
+            <li class="hide-on-root"><a href="#settings" data-toggle="tab">Дополнительно</a></li>
         </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="pages">
 
-        <table class="table lapitable">
-        <thead>
-        <tr>
-            <th class="checker"></th>
-            {{#columns}}
-                <th>{{title}}</th>
-            {{/columns}}
-        </tr>
-        </thead>
-        <tbody >
-            {{#rows}}
-            <tr data-checked = 'false' data-id='{{&_id}}'  data-alias='{{&alias}}'>
-                <td  class="checker"><i class="fa fa-square-o unchecked-icon"></i><i class="fa fa-check-square-o checked-icon"></i> </td>
-                {{#cells}}
-                <td>{{&content}}</td>
-                {{/cells}}
-            </tr>
-            {{/rows}}
-        </tbody>
-        <tfoot>
-        <tr>
-            <th data-checked = 'false' class="checker">
-                <i class="fa fa-square-o unchecked-icon"></i>
-                <i class="fa fa-check-square-o checked-icon"></i>
-            </th>
-            <th colspan="{{count}}">
-                <div class="row">
-                    <div class="col-md-9 lt-foot">
-                        <a href="#"><i class="fa fa-folder-open-o fa-fw"></i> Папки</a>
-                        <a href="#" data-action="delete-pages"><i class="fa fa-trash-o fa-fw"></i> Удалить</a>
+                <table class="table lapitable">
+                    <thead>
+                    <tr>
+                        <th class="checker"></th>
+                        {{#columns}}
+                        <th>{{title}}</th>
+                        {{/columns}}
+                    </tr>
+                    </thead>
+                    <tbody >
+                    {{#rows}}
+                    <tr data-checked = 'false' data-id='{{&_id}}'  data-alias='{{&alias}}'>
+                        <td  class="checker"><i class="fa fa-square-o unchecked-icon"></i><i class="fa fa-check-square-o checked-icon"></i> </td>
+                        {{#cells}}
+                        <td>{{&content}}</td>
+                        {{/cells}}
+                    </tr>
+                    {{/rows}}
+                    </tbody>
+                </table>
+                <div class="row lt-foot">
+                    <div class="col-md-1 checker" data-checked = 'false'>
+                        <i class="fa fa-square-o unchecked-icon"></i>
+                        <i class="fa fa-check-square-o checked-icon"></i>
                     </div>
-                    <div class="col-md-3 lt-foot">
-                        <ul class="pagination pagination-sm">
-                            <li><a href="#">&laquo;</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">&raquo;</a></li>
-                        </ul>
+                    <div class="col-md-8">
+                        <div class="btn-group dropup">
+                            <button type="button" class="btn btn-labeled btn-link dropdown-toggle" data-toggle="dropdown">
+                                <span class="btn-label"><i class="fa fa-folder-open-o fa-fw"></i></span> Папки <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="hide-on-root"><a href="#" data-action="move-to-group">Перенести в...</a></li>
+                                <li><a href="#" data-action="add-to-group">Добавить в...</a></li>
+                                <li class="divider hide-on-root"></li>
+                                <li class="hide-on-root"><a href="#" data-action="remove-from-group">Убрать</a></li>
+                            </ul>
+                        </div>
+                        <button type="button" class="btn btn-labeled btn-link" data-action="delete-pages">
+                            <span class="btn-label"><i class="fa fa-trash-o fa-fw"></i></span>Удалить
+                        </button>
+                    </div>
+                    <div class="col-md-3">
+
                     </div>
                 </div>
-            </th>
-        </tr>
-        </tfoot>
-        </table>
+            </div>
+            <div class="tab-pane" id="settings">
+                <br/>
+                <div class="row">
+                    <form role="form" class="col-sm-5">
+                        <div class="form-group">
+                            <label class="control-label" for="title">Название</label>
+                            <input type="input" class="form-control" id="exampleInputEmail1" name="title" placeholder="Введите название группы">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="alias">Ключ</label>
+                            <input type="input" class="form-control" name="alias" placeholder="Введите ключ группы">
+                            <p class="help-block">Ключ - уникальный идетификтор группы. Испульзуется в URL. Может содержать строчные латинские символы и знак _</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="parent">Родитель</label>
+                            <div class="input-group">
+                                <select type="text" name="parent" class="form-control" disabled></select>
+                                <span class="input-group-btn">
+                                    <button data-action="select-group-parent" data-disable-children="true" class="btn btn-default" type="button"><i class="fa fa-list-alt"></i></button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button data-action="save-group" class="btn btn-primary right">Сохранить</button>
+                        </div>
+                    </form>
+                    <div class="col-sm-4 col-sm-offset-3">
+                        <button data-action="delete-group" class="btn btn-danger btn-block">Удалить группу</button>
+                        <!--
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Удалить подгруппы
+                            </label>
+                        </div>
+                        -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

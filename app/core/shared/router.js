@@ -7,7 +7,7 @@ var router = function (url, patterns) {
 
         var createKeyValues = function (startIndex, routeElem, ret) {
             for (var i = startIndex; i < routeElem.length; i = i + 2) {
-                ret[routeElem[i]] = routeElem[i+1];
+                ret[routeElem[i]] = routeElem[i+1] || null;
             }
         }
 

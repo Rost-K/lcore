@@ -3,6 +3,9 @@ var fullPage = function (callback) {
     var core = this.core;
     var reqdata = this.request;
 
+    var _ = involve('/modules/helpers/underscore-min.js');
+    var editMode = (reqdata.routingData.edit === null);
+
     var pageTypes = {
         tabs: involve('/modules/pages/controllers/types/tabs.js'),
         plain: involve('/modules/pages/controllers/types/plain.js')
@@ -38,8 +41,13 @@ var fullPage = function (callback) {
                 return;
             }
             if (pageTypes[page.type]) {
+                var renderData = _.extend({
+                    "hide-header": !editMode && !!page['hide-intro'],
+                    "edit-mode": editMode
+                }, page);
+
                 core.setDecisive(true);
-                pageTypes[page.type].render(page, mainRenderCallback, context);
+                pageTypes[page.type].render(renderData, mainRenderCallback, context);
             } else {
                 callback({content:{}},
                     {
@@ -58,12 +66,9 @@ module.exports = {
          pattern: '/page/:keyvalues',
          handler: logData
          },*/
+
         {
-            pattern: '/page/:alias/edit',
-            handler: fullPage
-        },
-        {
-            pattern: '/page/:alias/*',
+            pattern: '/page/:alias/:keyvalues',
             handler: fullPage
         },
         {

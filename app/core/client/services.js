@@ -2,8 +2,9 @@ var call = function(request, callback) {
     $.ajax({
         type: "POST",
         url: '/services/'+request.name,
-        data: request,
+        data:  JSON.stringify(request),
         dataType: 'json',
+        contentType: 'application/json; charset=UTF-8',
         success: callback
     })
 }

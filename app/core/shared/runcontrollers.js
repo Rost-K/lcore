@@ -14,7 +14,7 @@
             };
             runControl.list.push(conObj);
         }
-       // console.log(runControl);
+
         var nextIteration = function (answer, err) {
             runControl.results.push (answer);
             runControl.marker++;
@@ -46,7 +46,6 @@
         }
 
         var iterateController = function () {
-            console.log('iterating ', runControl);
             var conReq = JSON.parse(JSON.stringify(reqData));
             conReq.routingData = runControl.list[runControl.marker].data.routingData;
             var contextObject = {

@@ -7,7 +7,8 @@ module.exports = {
         pagesadmin: '/views/admin/pages.js'
     },
     services: {
-        pages: '/services/pages.js'
+        pages: '/services/pages.js',
+        groups: '/services/groups.js'
     },
     templatesFolder:'/templates'
 }

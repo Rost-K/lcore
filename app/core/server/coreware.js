@@ -44,7 +44,7 @@ var coreWare = function (config, appStructure) {
             }
             templateData['sharedData'] = JSON.stringify(core.shared);
             templateData['appStructure'] = JSON.stringify(outputStructure);
-
+            templateData['config'] = JSON.stringify(involve('/config/client.js'));
             templateReq = {
                 file: "templates/main.html",
                 data: templateData
@@ -65,7 +65,10 @@ var coreWare = function (config, appStructure) {
         var emptyHandler = function (reqdata, callback) {
         }
 
-        var serviceResult = router (req.url, {service: {routes: [{pattern:'/services/:name', handler: emptyHandler}]}});
+        var serviceResult = router (req.url, {service: {routes: [
+            {pattern:'/services/:name', handler: emptyHandler},
+            {pattern:'/upload', handler: emptyHandler}
+        ]}});
 
         if (serviceResult) {
             core.services.call(serviceReqInstance.body, serviceCallback);

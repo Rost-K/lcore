@@ -1,0 +1,53 @@
+
+@font-face {
+    font-family: 'Scada';
+    src: url('scada-bold.eot');
+    src: url('scada-bold.eot?#iefix') format('embedded-opentype'),
+         url('scada-bold.woff') format('woff'),
+         url('scada-bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'Scada';
+    src: url('scada-bolditalic.eot');
+    src: url('scada-bolditalic.eot?#iefix') format('embedded-opentype'),
+         url('scada-bolditalic.woff') format('woff'),
+         url('scada-bolditalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'Scada';
+    src: url('scada-italic.eot');
+    src: url('scada-italic.eot?#iefix') format('embedded-opentype'),
+         url('scada-italic.woff') format('woff'),
+         url('scada-italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'Scada';
+    src: url('scada-regular.eot');
+    src: url('scada-regular.eot?#iefix') format('embedded-opentype'),
+         url('scada-regular.woff') format('woff'),
+         url('scada-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}

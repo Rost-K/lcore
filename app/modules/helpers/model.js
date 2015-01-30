@@ -15,6 +15,7 @@ var Model = function (configObj) {
     */
     var config = configObj || {};
     var model = this;
+    this.helpers = {};
     this.data = config.data || {};
     this.save = config.save || function (callback) {callback()};
     this.fetch = config.fetch || function (callback) {callback()};
@@ -36,7 +37,27 @@ var Model = function (configObj) {
         $form.find('[name]').each(function(){
             var $el = $(this);
             if ( model.data[$el.attr('name')]) {
-                $el.data('field-type') == 'richtext' ? $el.html(model.data[$el.attr('name')]) : $el.val(model.data[$el.attr('name')]);
+                switch($el.data('field-type'))
+                {
+                    case 'richtext':
+                        $el.html(model.data[$el.attr('name')]);
+                        break;
+                    case 'alias':
+                        var alF = $el.data('alias-field');
+                        var vlF = $el.data('value-field');
+                        var fData = model.data[$el.attr('name')];
+                        if (fData[alF] && fData[vlF]) {
+                            $el.html('<option value="' + fData[vlF] + '" selected>' + fData[alF] + '</option>');
+                        }
+                        break;
+                    default:
+                        if ($el.attr('type') == 'checkbox') {
+                            $el.prop('checked', model.data[$el.attr('name')] )
+                        } else {
+                            $el.val(model.data[$el.attr('name')]);
+                        }
+
+                }
             }
         });
     }
@@ -69,7 +90,16 @@ var Model = function (configObj) {
                         model.data[$el.attr('name')] = tabs;
                        break;
                     default:
-                       model.data[$el.attr('name')] = $el.val();
+                       if ($el.attr('type') == 'checkbox') {
+                           if ($el.prop('checked')) {
+                               model.data[$el.attr('name')] = true;
+                           } else {
+                               model.data[$el.attr('name')] = false;
+                           }
+                       } else {
+                           model.data[$el.attr('name')] = $el.val();
+                       }
+
                 }
             }
         });
@@ -115,6 +145,56 @@ var Model = function (configObj) {
                 $el.after($errorLabel);
             })
         }
+    }
+    this.helpers.fillSelectOptions = function(params) {
+        var opts = {
+            data: [],
+            el: {},
+            valueField: false,
+            labelField: false,
+            selectedValue: false
+        }
+        $.extend(opts, params);
+
+        if (opts.el instanceof jQuery) {
+            var $el = opts.el;
+        } else {
+            var $el = $(opts.el);
+        }
+
+        var $tmpEl = $('<div/>');
+        if ((opts.valueField || !opts.data.length) && opts.labelField) {
+            if (opts.data.length) {
+                for (var i=0; i < opts.data.length; i++) {
+                    if (typeof opts.data[i][opts.valueField] !== 'undefined' && typeof opts.data[i][opts.labelField] !== 'undefined') {
+                        jQuery('<option/>', {
+                            selected: opts.selectedValue ? opts.selectedValue == opts.data[i][opts.valueField] : false,
+                            value: opts.data[i][opts.valueField],
+                            text:  opts.data[i][opts.labelField]
+                        }).appendTo($tmpEl);
+                    }
+                }
+            } else {
+                var val;
+                for (key in opts.data) {
+                    if (typeof opts.data[key][opts.labelField] !== 'undefined') {
+                        if (!opts.valueField) {
+                            val = key;
+                        } else {
+                            val = opts.data[key][opts.valueField]
+                        }
+                        jQuery('<option/>', {
+                            selected: opts.selectedValue ? opts.selectedValue == val : false,
+                            value: val,
+                            text:  opts.data[key][opts.labelField]
+                        }).appendTo($tmpEl);
+                    }
+                }
+            }
+            $el.empty();
+            $tmpEl.children().appendTo($el);
+        }
+
     }
 }
 
